@@ -1,6 +1,7 @@
 # header
 from fastapi import FastAPI, File, UploadFile, Response
 import requests
+import os
 import speech_recognition as sr
 import gpt_2_simple as gpt2
 from googletrans import Translator
@@ -12,11 +13,10 @@ translator = Translator()
 r = sr.Recognizer()
 
 # function
-def download_gpt2_model():
-    model_name = "124M"
-    model_folder = os.path.join("models", model_name)
-    if not os.path.exists(model_folder):
-        gpt2.download_gpt2(model_name=model_name)
+model_name = "124M"
+model_folder = os.path.join("models", model_name)
+if not os.path.exists(model_folder):
+    gpt2.download_gpt2(model_name=model_name)
 
 def chat(pesan: str):
     sess = gpt2.start_tf_sess()
